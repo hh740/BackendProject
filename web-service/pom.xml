@@ -14,12 +14,26 @@
     <name>code lab Webapp</name>
 
     <properties>
-        <json.lib.version>2.4</json.lib.version>
+        <json.lib.version>2.2.2</json.lib.version>
+        <databaseHost>10.98.80.56</databaseHost>
+        <databaseName>miui_sec_api</databaseName>
+        <databasePort>3306</databasePort>
+        <databaseUser>root</databaseUser>
+        <databasePassword>sec</databasePassword>
+        <log4j_level>debug</log4j_level>
     </properties>
 
     <profiles>
         <profile>
             <id>dev</id>
+            <properties>
+                <databaseHost>10.98.80.56</databaseHost>
+                <databaseName>miui_sec_api</databaseName>
+                <databasePort>3306</databasePort>
+                <databaseUser>root</databaseUser>
+                <databasePassword>sec</databasePassword>
+                <log4j_level>debug</log4j_level>
+            </properties>
             <activation>
                 <!--dev环境为默认环境-->
                 <activeByDefault>true</activeByDefault>
@@ -46,6 +60,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
         <!--需要单独引用的模块-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -61,19 +83,17 @@
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <version>${json.lib.version}</version>
+            <classifier>jdk15</classifier>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>test-webapp</finalName>
-        <!--设置properties替换目录-->
+        <!--设置properties替换目录,复制到classes到文件夹-->
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
             </resource>
             <resource>
                 <directory>${project.basedir}/src/main/webapp</directory>
@@ -91,7 +111,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>6.1.26</version>
+                <version>8.1.9.v20130131</version>
                 <configuration>
                     <!--热部署-->
                     <scanIntervalSeconds>10</scanIntervalSeconds>
@@ -103,23 +123,6 @@
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
-                <version>2.15.2</version>
-                <executions>
-                    <execution>
-                        <id>scala-compile-first</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

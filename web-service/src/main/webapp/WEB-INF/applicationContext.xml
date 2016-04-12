@@ -15,4 +15,5 @@
 
     <!--自动扫描包中的注解-->
     <context:component-scan base-package="com.test"/>
+
 </beans>

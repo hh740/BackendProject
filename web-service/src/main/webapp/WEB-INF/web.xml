@@ -16,9 +16,14 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+
+    <!--其他配置文件路径,会将所有的配置进行连接,分模块进行部署,添加新的组件要更新列表-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:context/context-mybatis.xml
+        </param-value>
+    </context-param>
 
     <!-- context-param 使用application内置对象获取,为整个应用的全局配置-->
     <context-param>
@@ -30,13 +35,17 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
+    <!--spring mvc配置-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <servlet>
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--servlet page 配置-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:context-web.xml</param-value>
+            <param-value>/WEB-INF/applicationContext.xml</param-value>
         </init-param>
         <init-param>
             <param-name>dispatchOptionsRequest</param-name>
@@ -45,10 +54,11 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*</url-pattern>
+        <servlet-name>spring-dispatcher</servlet-name>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
+    <!--编码过滤器-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

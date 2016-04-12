@@ -6,16 +6,13 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
+    <!--扫描配置文件,替换${key}变量-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-    <!--<property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
-    <context:component-scan base-package="com.xiaomi.miui.sec.service">
-        <!--
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-        -->
-    </context:component-scan>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
@@ -42,38 +39,14 @@
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
-    <!--
-    <bean id="batchSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory" />
-        <constructor-arg index="1" value="BATCH" />
-    </bean>
+    <!--<bean id="batchSqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+        <!--<constructor-arg index="0" ref="sqlSessionFactory"/>-->
+        <!--<constructor-arg index="1" value="BATCH"/>-->
+    <!--</bean>-->
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.xiaomi.miui.sec.**.mapper" />
-		<property name="sqlSessionTemplateBeanName" value="sqlSession" />
-	</bean>
-    -->
-    <bean id="configurer0" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--<property name="basePackage" value="com.xiaomi.miui.sec" />-->
-        <property name="basePackage" value="com.xiaomi.miui.sec.auth,com.xiaomi.miui.sec.wake,com.xiaomi.miui.sec.universal"/>
+    <bean id="configure" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.test.dao"/>
         <property name="sqlSessionTemplateBeanName" value="sqlSession"/>
     </bean>
-
-    <bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl"
-                  value="jdbc:mysql://${databaseHost}:${databasePort}/${databaseName}?useUnicode=true&amp;characterEncoding=UTF-8"/>
-        <property name="user" value="${databaseUser}"/>
-        <property name="password" value="${databasePassword}"/>
-        <property name="initialPoolSize" value="1"/>
-        <property name="minPoolSize" value="0"/>
-        <property name="maxPoolSize" value="50"/>
-        <property name="acquireIncrement" value="5"/>
-        <property name="maxIdleTime" value="10"/>
-        <property name="maxStatements" value="0"/>
-        <property name="idleConnectionTestPeriod" value="30"/>
-    </bean>
-
-
 
 </beans>

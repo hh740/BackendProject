@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log4j_path}"/>
+        <param name="DatePattern" value=".yyyyMMdd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p [%t] %C.%M(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p [%t] %C.%M(%F:%L) - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.apache" additivity="false">
+        <level value="${log4j_level}"/>
+        <appender-ref ref="file"/>
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="${log4j_level}"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="com.test" additivity="false">
+        <level value="${log4j_level}"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!--所有的子logger在父root中的appender中进行输出,如果配置additivity则子logger只会
+    在自己的appender中输出,\而不会在父logger的appender里输出-->
+
+    <root>
+        <priority value="${log4j_level}"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </root>
+
+</log4j:configuration>

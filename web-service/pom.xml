@@ -14,13 +14,8 @@
     <name>code lab Webapp</name>
 
     <properties>
-        <json.lib.version>2.2.2</json.lib.version>
-        <databaseHost>10.98.80.56</databaseHost>
-        <databaseName>miui_sec_api</databaseName>
-        <databasePort>3306</databasePort>
-        <databaseUser>root</databaseUser>
-        <databasePassword>sec</databasePassword>
-        <log4j_level>debug</log4j_level>
+        <quartz.version>2.2.1</quartz.version>
+        <json.lib.version>2.4</json.lib.version>
     </properties>
 
     <profiles>
@@ -33,6 +28,8 @@
                 <databaseUser>root</databaseUser>
                 <databasePassword>sec</databasePassword>
                 <log4j_level>debug</log4j_level>
+                <log4j_path>${basedir}/log/</log4j_path>
+                <quartz.autostartup>true</quartz.autostartup>
             </properties>
             <activation>
                 <!--dev环境为默认环境-->
@@ -49,6 +46,11 @@
         <dependency>
             <groupId>${parent.groupId}</groupId>
             <artifactId>mybatis</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${parent.groupId}</groupId>
+            <artifactId>common</artifactId>
             <version>${parent.version}</version>
         </dependency>
         <!--引用parent的公共依赖,版本在parent中指定-->
@@ -68,6 +70,14 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
         <!--需要单独引用的模块-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -84,6 +94,11 @@
             <artifactId>json-lib</artifactId>
             <version>${json.lib.version}</version>
             <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
         </dependency>
     </dependencies>
 

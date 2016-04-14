@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+       default-lazy-init="false">
+
+    <context:property-placeholder location="classpath:quartz.properties"/>
+
+    <!-- 1 -->
+    <bean name="scheduler" lazy-init="true" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="ExampleTrigger"/>
+            </list>
+        </property>
+        <property name="autoStartup" value="${quartz.autostartup}"/>
+    </bean>
+
+
+    <bean id="ExampleTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="ExampleServiceDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>* * * * * ?</value>
+        </property>
+    </bean>
+
+    <bean id="ExampleServiceDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="exampleService"/>
+        </property>
+        <property name="targetMethod">
+            <value>sechduler</value>
+        </property>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+</beans>

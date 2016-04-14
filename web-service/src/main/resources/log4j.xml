@@ -28,7 +28,7 @@
         <appender-ref ref="console"/>
     </logger>
 
-    <logger name="com.test" additivity="false">
+    <logger name="com.codelab.web" additivity="false">
         <level value="${log4j_level}"/>
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>

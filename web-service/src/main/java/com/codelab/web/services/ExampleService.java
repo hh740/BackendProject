@@ -1,7 +1,10 @@
-package com.test.services;
+package com.codelab.web.services;
 
-import com.test.dao.AdminUserMapper;
-import com.test.entity.User;
+import com.codelab.web.dao.AdminUserMapper;
+import com.codelab.web.entity.User;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +15,13 @@ import java.util.List;
  * Created by wangke on 16/4/12.
  */
 @Service
-public class TestService {
+public class ExampleService {
+
+
+    Logger logger = LoggerFactory.getLogger(ExampleService.class);
 
     @Resource
     private AdminUserMapper adminUserMapper;
-
 
     @Transactional
     public String getUsers(){
@@ -28,8 +33,15 @@ public class TestService {
         for(User user:users){
             sb.append(user).append("\n");
         }
-
         return sb.toString();
 
     }
+
+    public void sechduler(){
+
+        logger.info("shchduler executor");
+
+    }
+
+
 }

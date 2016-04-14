@@ -1,4 +1,4 @@
-package com.test.entity;
+package com.codelab.web.entity;
 
 
 import java.util.Date;

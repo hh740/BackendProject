@@ -1,9 +1,8 @@
-package com.test.dao;
+package com.codelab.web.dao;
 
 
-import com.test.entity.User;
+import com.codelab.web.entity.User;
 
-import java.util.Date;
 import java.util.List;
 
 public interface AdminUserMapper {

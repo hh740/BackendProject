@@ -1,16 +1,17 @@
-package com.test.controllers;
+package com.codelab.web.controllers;
 
-import com.test.dao.AdminUserMapper;
-import com.test.entity.User;
-import com.test.services.TestService;
+import com.codelab.common.service.EmailService;
+import com.codelab.web.services.ExampleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by wangke on 16/4/6.
@@ -22,13 +23,27 @@ import java.util.List;
 public class TestController {
 
     @Resource
-    private TestService testService;
+    private ExampleService exampleService;
+
+    @Resource
+    private EmailService emailService;
+
+    Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @RequestMapping("/mybatis")
     public void testPath(HttpServletResponse response, HttpServletRequest request) throws IOException {
 
-        String sb = testService.getUsers();
+        String sb = exampleService.getUsers();
         response.getWriter().write(sb.toString());
+
+    }
+
+    @RequestMapping("/mail/{sender}")
+    public void sendMail(@PathVariable("sender") String sender) throws Exception {
+
+        logger.debug("sender:{}",sender);
+
+       // emailService.sendEmail(sender,"707071062@qq.com","hello","hello world",false,false);
 
     }
 

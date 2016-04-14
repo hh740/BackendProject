@@ -21,7 +21,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:context/context-mybatis.xml
+            classpath:context/context-mybatis.xml,
+            classpath:context/context-common.xml,
+            classpath:context/context-quartz.xml,
+            classpath:context/applicationContext.xml
         </param-value>
     </context-param>
 
@@ -42,10 +45,10 @@
     <servlet>
         <servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--servlet page 配置-->
+        <!--servlet page 配置,这里的ContextConfigLocation加载的bean为私有的bean-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/applicationContext.xml</param-value>
+            <param-value>classpath:/context/dispatch.xml</param-value>
         </init-param>
         <init-param>
             <param-name>dispatchOptionsRequest</param-name>
@@ -71,5 +74,33 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>*</url-pattern>
     </filter-mapping>
+
+    <!--XSS filter-->
+    <filter>
+        <filter-name>XSSFilter</filter-name>
+        <filter-class>com.codelab.web.security.XSSFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>XSSFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AnalysisFilter</filter-name>
+        <filter-class>com.codelab.web.security.ReqAnalysisFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AnalysisFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+
 </web-app>
 

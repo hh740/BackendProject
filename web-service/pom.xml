@@ -30,6 +30,9 @@
                 <log4j_level>debug</log4j_level>
                 <log4j_path>${basedir}/log/</log4j_path>
                 <quartz.autostartup>true</quartz.autostartup>
+                <redis.host>10.98.80.56</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.pass>sec</redis.pass>
             </properties>
             <activation>
                 <!--dev环境为默认环境-->

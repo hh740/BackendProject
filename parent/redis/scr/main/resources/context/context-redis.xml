@@ -16,15 +16,15 @@
     <context:property-placeholder location="classpath:redis.properties"
                                   ignore-unresolvable="true"/>
 
-    <context:component-scan base-package="com.codelab.redis.test"/>
 
-    <!-- redis 配置 -->
+    <!-- spring-redis 配置 -->
     <bean id="jedisConnFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
-        <property name="password" value="${redis.pass}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="${redis.timeout}"/>
         <property name="usePool" value="true"/>
 
     </bean>
@@ -46,10 +46,10 @@
         </property>
     </bean>
 
+    <!--jdeis配置-->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxIdle" value="100" />
-        <property name="maxActive" value="300" />
-        <property name="maxWait" value="10000" />
+        <!--连接时检查有效性-->
         <property name="testOnBorrow" value="true" />
     </bean>
 
@@ -57,6 +57,9 @@
         <constructor-arg  ref="poolConfig"/>
         <constructor-arg  type="java.lang.String" value="${redis.host}"/>
         <constructor-arg  type="int" value="${redis.port}"/>
+        <constructor-arg  type="int" value="${redis.timeout}"/>
+        <constructor-arg  type="java.lang.String" value="${redis.password}"/>
+        <constructor-arg  type="int" value="${redis.database}"/>
     </bean>
 
 

@@ -16,7 +16,6 @@
         <javax.mail.version>1.4.6</javax.mail.version>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

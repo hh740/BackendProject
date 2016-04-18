@@ -11,5 +11,14 @@
 
     <artifactId>hbase</artifactId>
 
-
+    <properties>
+        <hbase.version>1.2.1</hbase.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+            <version>${hbase.version}</version>
+        </dependency>
+    </dependencies>
 </project>

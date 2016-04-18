@@ -14,6 +14,7 @@
     <properties>
         <redis.spring.version>1.6.4.RELEASE</redis.spring.version>
         <common.pool.version>2.4.2</common.pool.version>
+        <redis.clients.version>2.8.1</redis.clients.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
+            <version>${redis.clients.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

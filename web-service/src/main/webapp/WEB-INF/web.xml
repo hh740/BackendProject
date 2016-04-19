@@ -45,7 +45,8 @@
     <servlet>
         <servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--servlet page 配置,这里的ContextConfigLocation加载的bean为私有的bean-->
+        <!--servlet page 配置,这里的ContextConfigLocation加载的bean为私有的bean,
+            仅扫描contollers-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:/context/dispatch.xml</param-value>

@@ -7,5 +7,6 @@ logs/
 *.iml
 *.ipr
 *.iws
+*.eml
 .idea/
 

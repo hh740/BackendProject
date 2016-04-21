@@ -24,6 +24,7 @@ public class HDFSService {
 
 			Configuration conf = new Configuration();
 			FileSystem fs = FileSystem.get(conf);
+
 			if (fs.exists(new Path(path))) {
 
 				logger.debug("filepath:{}", path);

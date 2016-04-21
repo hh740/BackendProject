@@ -5,5 +5,5 @@ package com.codelab.cache;
  * @since 05 Feb 2015
  */
 public enum NameSpace {
-    DEFAULT, ANTIVIRUS, AUTH;
+    DEFAULT;
 }

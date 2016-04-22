@@ -1,12 +1,8 @@
-package com.codelab.cache;
+package com.codelab.cache.redis;
 
 import java.util.concurrent.Callable;
 
-/**
- * @author edwin
- * @since 17 Jan 2015
- */
-public class LocalCache /* implements CallableCache<String, Object> */ {
+public class LocalCache  {
 
     private NameSpace namespace;
 

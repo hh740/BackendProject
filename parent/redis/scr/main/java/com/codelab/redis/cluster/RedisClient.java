@@ -1,0 +1,2425 @@
+package com.codelab.redis.cluster;
+
+import redis.clients.jedis.BinaryClient.LIST_POSITION;
+import redis.clients.jedis.*;
+import redis.clients.util.Slowlog;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+
+/**
+ * Redis client
+ *
+ */
+public class RedisClient /* implements Cache */{
+
+    private Jedis delegate;
+
+    public void setDelegate(Jedis jedis) {
+        this.delegate = jedis;
+    }
+
+    public Jedis getDelegate() {
+        return delegate;
+    }
+
+    public RedisClient(Jedis jedis) {
+        if (jedis == null) throw new NullPointerException();
+        this.delegate = jedis;
+    }
+
+
+    // ==================== Jedis ============================
+
+    public String set(String key, String value) {
+
+        return delegate.set(key, value);
+    }
+
+
+    public String set(String key, String value, String nxxx, String expx, long time) {
+
+        return delegate.set(key, value, nxxx, expx, time);
+    }
+
+
+    public String get(String key) {
+
+        return delegate.get(key);
+    }
+
+
+    public Boolean exists(String key) {
+
+        return delegate.exists(key);
+    }
+
+
+    public Long del(String... keys) {
+
+        return delegate.del(keys);
+    }
+
+
+    public Long del(String key) {
+
+        return delegate.del(key);
+    }
+
+
+    public String type(String key) {
+
+        return delegate.type(key);
+    }
+
+
+    public Set<String> keys(String pattern) {
+
+        return delegate.keys(pattern);
+    }
+
+
+    public String randomKey() {
+
+        return delegate.randomKey();
+    }
+
+
+    public String rename(String oldkey, String newkey) {
+
+        return delegate.rename(oldkey, newkey);
+    }
+
+
+    public Long renamenx(String oldkey, String newkey) {
+
+        return delegate.renamenx(oldkey, newkey);
+    }
+
+
+    public Long expire(String key, int seconds) {
+
+        return delegate.expire(key, seconds);
+    }
+
+
+    public Long expireAt(String key, long unixTime) {
+
+        return delegate.expireAt(key, unixTime);
+    }
+
+
+    public Long ttl(String key) {
+
+        return delegate.ttl(key);
+    }
+
+
+    public Long move(String key, int dbIndex) {
+
+        return delegate.move(key, dbIndex);
+    }
+
+
+    public String getSet(String key, String value) {
+
+        return delegate.getSet(key, value);
+    }
+
+
+    public List<String> mget(String... keys) {
+
+        return delegate.mget(keys);
+    }
+
+
+    public Long setnx(String key, String value) {
+
+        return delegate.setnx(key, value);
+    }
+
+
+    public String setex(String key, int seconds, String value) {
+
+        return delegate.setex(key, seconds, value);
+    }
+
+
+    public String mset(String... keysvalues) {
+
+        return delegate.mset(keysvalues);
+    }
+
+
+    public Long msetnx(String... keysvalues) {
+
+        return delegate.msetnx(keysvalues);
+    }
+
+
+    public Long decrBy(String key, long integer) {
+
+        return delegate.decrBy(key, integer);
+    }
+
+
+    public Long decr(String key) {
+
+        return delegate.decr(key);
+    }
+
+
+    public Long incrBy(String key, long integer) {
+
+        return delegate.incrBy(key, integer);
+    }
+
+
+    public Long incr(String key) {
+
+        return delegate.incr(key);
+    }
+
+
+    public Long append(String key, String value) {
+
+        return delegate.append(key, value);
+    }
+
+
+    public String substr(String key, int start, int end) {
+
+        return delegate.substr(key, start, end);
+    }
+
+
+    public Long hset(String key, String field, String value) {
+
+        return delegate.hset(key, field, value);
+    }
+
+
+    public String hget(String key, String field) {
+
+        return delegate.hget(key, field);
+    }
+
+
+    public Long hsetnx(String key, String field, String value) {
+
+        return delegate.hsetnx(key, field, value);
+    }
+
+
+    public String hmset(String key, Map<String, String> hash) {
+
+        return delegate.hmset(key, hash);
+    }
+
+
+    public List<String> hmget(String key, String... fields) {
+
+        return delegate.hmget(key, fields);
+    }
+
+
+    public Long hincrBy(String key, String field, long value) {
+
+        return delegate.hincrBy(key, field, value);
+    }
+
+
+    public Boolean hexists(String key, String field) {
+
+        return delegate.hexists(key, field);
+    }
+
+
+    public Long hdel(String key, String... fields) {
+
+        return delegate.hdel(key, fields);
+    }
+
+
+    public Long hlen(String key) {
+
+        return delegate.hlen(key);
+    }
+
+
+    public Set<String> hkeys(String key) {
+
+        return delegate.hkeys(key);
+    }
+
+
+    public List<String> hvals(String key) {
+
+        return delegate.hvals(key);
+    }
+
+
+    public Map<String, String> hgetAll(String key) {
+
+        return delegate.hgetAll(key);
+    }
+
+
+    public Long rpush(String key, String... strings) {
+
+        return delegate.rpush(key, strings);
+    }
+
+
+    public Long lpush(String key, String... strings) {
+
+        return delegate.lpush(key, strings);
+    }
+
+
+    public Long llen(String key) {
+
+        return delegate.llen(key);
+    }
+
+
+    public List<String> lrange(String key, long start, long end) {
+
+        return delegate.lrange(key, start, end);
+    }
+
+
+    public String ltrim(String key, long start, long end) {
+
+        return delegate.ltrim(key, start, end);
+    }
+
+
+    public String lindex(String key, long index) {
+
+        return delegate.lindex(key, index);
+    }
+
+
+    public String lset(String key, long index, String value) {
+
+        return delegate.lset(key, index, value);
+    }
+
+
+    public Long lrem(String key, long count, String value) {
+
+        return delegate.lrem(key, count, value);
+    }
+
+
+    public String lpop(String key) {
+
+        return delegate.lpop(key);
+    }
+
+
+    public String rpop(String key) {
+
+        return delegate.rpop(key);
+    }
+
+
+    public String rpoplpush(String srckey, String dstkey) {
+
+        return delegate.rpoplpush(srckey, dstkey);
+    }
+
+
+    public Long sadd(String key, String... members) {
+
+        return delegate.sadd(key, members);
+    }
+
+
+    public Set<String> smembers(String key) {
+
+        return delegate.smembers(key);
+    }
+
+
+    public Long srem(String key, String... members) {
+
+        return delegate.srem(key, members);
+    }
+
+
+    public String spop(String key) {
+
+        return delegate.spop(key);
+    }
+
+
+    public Long smove(String srckey, String dstkey, String member) {
+
+        return delegate.smove(srckey, dstkey, member);
+    }
+
+
+    public Long scard(String key) {
+
+        return delegate.scard(key);
+    }
+
+
+    public Boolean sismember(String key, String member) {
+
+        return delegate.sismember(key, member);
+    }
+
+
+    public Set<String> sinter(String... keys) {
+
+        return delegate.sinter(keys);
+    }
+
+
+    public Long sinterstore(String dstkey, String... keys) {
+
+        return delegate.sinterstore(dstkey, keys);
+    }
+
+
+    public Set<String> sunion(String... keys) {
+
+        return delegate.sunion(keys);
+    }
+
+
+    public Long sunionstore(String dstkey, String... keys) {
+
+        return delegate.sunionstore(dstkey, keys);
+    }
+
+
+    public Set<String> sdiff(String... keys) {
+
+        return delegate.sdiff(keys);
+    }
+
+
+    public Long sdiffstore(String dstkey, String... keys) {
+
+        return delegate.sdiffstore(dstkey, keys);
+    }
+
+
+    public String srandmember(String key) {
+
+        return delegate.srandmember(key);
+    }
+
+
+    public List<String> srandmember(String key, int count) {
+
+        return delegate.srandmember(key, count);
+    }
+
+
+    public Long zadd(String key, double score, String member) {
+
+        return delegate.zadd(key, score, member);
+    }
+
+
+    public Long zadd(String key, Map<String, Double> scoreMembers) {
+
+        return delegate.zadd(key, scoreMembers);
+    }
+
+
+    public Set<String> zrange(String key, long start, long end) {
+
+        return delegate.zrange(key, start, end);
+    }
+
+
+    public Long zrem(String key, String... members) {
+
+        return delegate.zrem(key, members);
+    }
+
+
+    public Double zincrby(String key, double score, String member) {
+
+        return delegate.zincrby(key, score, member);
+    }
+
+
+    public Long zrank(String key, String member) {
+
+        return delegate.zrank(key, member);
+    }
+
+
+    public Long zrevrank(String key, String member) {
+
+        return delegate.zrevrank(key, member);
+    }
+
+
+    public Set<String> zrevrange(String key, long start, long end) {
+
+        return delegate.zrevrange(key, start, end);
+    }
+
+
+    public Set<Tuple> zrangeWithScores(String key, long start, long end) {
+
+        return delegate.zrangeWithScores(key, start, end);
+    }
+
+
+    public Set<Tuple> zrevrangeWithScores(String key, long start, long end) {
+
+        return delegate.zrevrangeWithScores(key, start, end);
+    }
+
+
+    public Long zcard(String key) {
+
+        return delegate.zcard(key);
+    }
+
+
+    public Double zscore(String key, String member) {
+
+        return delegate.zscore(key, member);
+    }
+
+
+    public String watch(String... keys) {
+
+        return delegate.watch(keys);
+    }
+
+
+    public List<String> sort(String key) {
+
+        return delegate.sort(key);
+    }
+
+
+    public List<String> sort(String key, SortingParams sortingParameters) {
+
+        return delegate.sort(key, sortingParameters);
+    }
+
+
+    public List<String> blpop(int timeout, String... keys) {
+
+        return delegate.blpop(timeout, keys);
+    }
+
+
+    public List<String> blpop(String... args) {
+
+        return delegate.blpop(args);
+    }
+
+
+    public List<String> brpop(String... args) {
+
+        return delegate.brpop(args);
+    }
+
+
+    public List<String> blpop(String arg) {
+
+        return delegate.blpop(arg);
+    }
+
+
+    public List<String> brpop(String arg) {
+
+        return delegate.brpop(arg);
+    }
+
+
+    public Long sort(String key, SortingParams sortingParameters, String dstkey) {
+
+        return delegate.sort(key, sortingParameters, dstkey);
+    }
+
+
+    public Long sort(String key, String dstkey) {
+
+        return delegate.sort(key, dstkey);
+    }
+
+
+    public List<String> brpop(int timeout, String... keys) {
+
+        return delegate.brpop(timeout, keys);
+    }
+
+
+    public Long zcount(String key, double min, double max) {
+
+        return delegate.zcount(key, min, max);
+    }
+
+
+    public Long zcount(String key, String min, String max) {
+
+        return delegate.zcount(key, min, max);
+    }
+
+
+    public Set<String> zrangeByScore(String key, double min, double max) {
+
+        return delegate.zrangeByScore(key, min, max);
+    }
+
+
+    public Set<String> zrangeByScore(String key, String min, String max) {
+
+        return delegate.zrangeByScore(key, min, max);
+    }
+
+
+    public Set<String> zrangeByScore(String key, double min, double max, int offset, int count) {
+
+        return delegate.zrangeByScore(key, min, max, offset, count);
+    }
+
+
+    public Set<String> zrangeByScore(String key, String min, String max, int offset, int count) {
+
+        return delegate.zrangeByScore(key, min, max, offset, count);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(String key, String min, String max) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max, int offset, int count) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max, offset, count);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(String key, String min, String max, int offset, int count) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max, offset, count);
+    }
+
+
+    public Set<String> zrevrangeByScore(String key, double max, double min) {
+
+        return delegate.zrevrangeByScore(key, max, min);
+    }
+
+
+    public Set<String> zrevrangeByScore(String key, String max, String min) {
+
+        return delegate.zrevrangeByScore(key, max, min);
+    }
+
+
+    public Set<String> zrevrangeByScore(String key, double max, double min, int offset, int count) {
+
+        return delegate.zrevrangeByScore(key, max, min, offset, count);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min, int offset, int count) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(String key, String max, String min, int offset, int count) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+
+    public Set<String> zrevrangeByScore(String key, String max, String min, int offset, int count) {
+
+        return delegate.zrevrangeByScore(key, max, min, offset, count);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(String key, String max, String min) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min);
+    }
+
+
+    public Long zremrangeByRank(String key, long start, long end) {
+
+        return delegate.zremrangeByRank(key, start, end);
+    }
+
+
+    public Long zremrangeByScore(String key, double start, double end) {
+
+        return delegate.zremrangeByScore(key, start, end);
+    }
+
+
+    public Long zremrangeByScore(String key, String start, String end) {
+
+        return delegate.zremrangeByScore(key, start, end);
+    }
+
+
+    public Long zunionstore(String dstkey, String... sets) {
+
+        return delegate.zunionstore(dstkey, sets);
+    }
+
+
+    public Long zunionstore(String dstkey, ZParams params, String... sets) {
+
+        return delegate.zunionstore(dstkey, params, sets);
+    }
+
+
+    public Long zinterstore(String dstkey, String... sets) {
+
+        return delegate.zinterstore(dstkey, sets);
+    }
+
+
+    public Long zinterstore(String dstkey, ZParams params, String... sets) {
+
+        return delegate.zinterstore(dstkey, params, sets);
+    }
+
+
+    public Long strlen(String key) {
+
+        return delegate.strlen(key);
+    }
+
+
+    public Long lpushx(String key, String... string) {
+
+        return delegate.lpushx(key, string);
+    }
+
+
+    public Long persist(String key) {
+
+        return delegate.persist(key);
+    }
+
+
+    public Long rpushx(String key, String... string) {
+
+        return delegate.rpushx(key, string);
+    }
+
+
+    public String echo(String string) {
+
+        return delegate.echo(string);
+    }
+
+
+    public Long linsert(String key, LIST_POSITION where, String pivot, String value) {
+
+        return delegate.linsert(key, where, pivot, value);
+    }
+
+
+    public String brpoplpush(String source, String destination, int timeout) {
+
+        return delegate.brpoplpush(source, destination, timeout);
+    }
+
+
+    public Boolean setbit(String key, long offset, boolean value) {
+
+        return delegate.setbit(key, offset, value);
+    }
+
+
+    public Boolean setbit(String key, long offset, String value) {
+
+        return delegate.setbit(key, offset, value);
+    }
+
+
+    public Boolean getbit(String key, long offset) {
+
+        return delegate.getbit(key, offset);
+    }
+
+
+    public Long setrange(String key, long offset, String value) {
+
+        return delegate.setrange(key, offset, value);
+    }
+
+
+    public String getrange(String key, long startOffset, long endOffset) {
+
+        return delegate.getrange(key, startOffset, endOffset);
+    }
+
+
+    public List<String> configGet(String pattern) {
+
+        return delegate.configGet(pattern);
+    }
+
+
+    public String configSet(String parameter, String value) {
+
+        return delegate.configSet(parameter, value);
+    }
+
+
+    public Object eval(String script, int keyCount, String... params) {
+
+        return delegate.eval(script, keyCount, params);
+    }
+
+
+    public void subscribe(JedisPubSub jedisPubSub, String... channels) {
+
+        delegate.subscribe(jedisPubSub, channels);
+    }
+
+
+    public Long publish(String channel, String message) {
+
+        return delegate.publish(channel, message);
+    }
+
+
+    public void psubscribe(JedisPubSub jedisPubSub, String... patterns) {
+
+        delegate.psubscribe(jedisPubSub, patterns);
+    }
+
+
+    public Object eval(String script, List<String> keys, List<String> args) {
+
+        return delegate.eval(script, keys, args);
+    }
+
+
+    public Object eval(String script) {
+
+        return delegate.eval(script);
+    }
+
+
+    public Object evalsha(String script) {
+
+        return delegate.evalsha(script);
+    }
+
+
+    public Object evalsha(String sha1, List<String> keys, List<String> args) {
+
+        return delegate.evalsha(sha1, keys, args);
+    }
+
+
+    public Object evalsha(String sha1, int keyCount, String... params) {
+
+        return delegate.evalsha(sha1, keyCount, params);
+    }
+
+
+    public Boolean scriptExists(String sha1) {
+
+        return delegate.scriptExists(sha1);
+    }
+
+
+    public List<Boolean> scriptExists(String... sha1) {
+
+        return delegate.scriptExists(sha1);
+    }
+
+
+    public String scriptLoad(String script) {
+
+        return delegate.scriptLoad(script);
+    }
+
+
+    public List<Slowlog> slowlogGet() {
+
+        return delegate.slowlogGet();
+    }
+
+
+    public List<Slowlog> slowlogGet(long entries) {
+
+        return delegate.slowlogGet(entries);
+    }
+
+
+    public Long objectRefcount(String string) {
+
+        return delegate.objectRefcount(string);
+    }
+
+
+    public String objectEncoding(String string) {
+
+        return delegate.objectEncoding(string);
+    }
+
+
+    public Long objectIdletime(String string) {
+
+        return delegate.objectIdletime(string);
+    }
+
+
+    public Long bitcount(String key) {
+
+        return delegate.bitcount(key);
+    }
+
+
+    public Long bitcount(String key, long start, long end) {
+
+        return delegate.bitcount(key, start, end);
+    }
+
+
+    public Long bitop(BitOP op, String destKey, String... srcKeys) {
+
+        return delegate.bitop(op, destKey, srcKeys);
+    }
+
+
+    public List<Map<String, String>> sentinelMasters() {
+
+        return delegate.sentinelMasters();
+    }
+
+
+    public List<String> sentinelGetMasterAddrByName(String masterName) {
+
+        return delegate.sentinelGetMasterAddrByName(masterName);
+    }
+
+
+    public Long sentinelReset(String pattern) {
+
+        return delegate.sentinelReset(pattern);
+    }
+
+
+    public List<Map<String, String>> sentinelSlaves(String masterName) {
+
+        return delegate.sentinelSlaves(masterName);
+    }
+
+
+    public String sentinelFailover(String masterName) {
+
+        return delegate.sentinelFailover(masterName);
+    }
+
+
+    public String sentinelMonitor(String masterName, String ip, int port, int quorum) {
+
+        return delegate.sentinelMonitor(masterName, ip, port, quorum);
+    }
+
+
+    public String sentinelRemove(String masterName) {
+
+        return delegate.sentinelRemove(masterName);
+    }
+
+
+    public String sentinelSet(String masterName, Map<String, String> parameterMap) {
+
+        return delegate.sentinelSet(masterName, parameterMap);
+    }
+
+
+    public byte[] dump(String key) {
+
+        return delegate.dump(key);
+    }
+
+
+    public String restore(String key, int ttl, byte[] serializedValue) {
+
+        return delegate.restore(key, ttl, serializedValue);
+    }
+
+
+    public Long pexpire(String key, int milliseconds) {
+
+        return delegate.pexpire(key, milliseconds);
+    }
+
+
+    public Long pexpireAt(String key, long millisecondsTimestamp) {
+
+        return delegate.pexpireAt(key, millisecondsTimestamp);
+    }
+
+
+    public Long pttl(String key) {
+
+        return delegate.pttl(key);
+    }
+
+
+    public Double incrByFloat(String key, double increment) {
+
+        return delegate.incrByFloat(key, increment);
+    }
+
+
+    public String psetex(String key, int milliseconds, String value) {
+
+        return delegate.psetex(key, milliseconds, value);
+    }
+
+
+    public String set(String key, String value, String nxxx) {
+
+        return delegate.set(key, value, nxxx);
+    }
+
+
+    public String set(String key, String value, String nxxx, String expx, int time) {
+
+        return delegate.set(key, value, nxxx, expx, time);
+    }
+
+
+    public String clientKill(String client) {
+
+        return delegate.clientKill(client);
+    }
+
+
+    public String clientSetname(String name) {
+
+        return delegate.clientSetname(name);
+    }
+
+
+    public String migrate(String host, int port, String key, int destinationDb, int timeout) {
+
+        return delegate.migrate(host, port, key, destinationDb, timeout);
+    }
+
+
+    public Double hincrByFloat(String key, String field, double increment) {
+
+        return delegate.hincrByFloat(key, field, increment);
+    }
+
+
+    public ScanResult<String> scan(int cursor) {
+
+        return delegate.scan(cursor);
+    }
+
+
+    public ScanResult<String> scan(int cursor, ScanParams params) {
+
+        return delegate.scan(cursor, params);
+    }
+
+
+    public ScanResult<Entry<String, String>> hscan(String key, int cursor) {
+
+        return delegate.hscan(key, cursor);
+    }
+
+
+    public ScanResult<Entry<String, String>> hscan(String key, int cursor, ScanParams params) {
+
+        return delegate.hscan(key, cursor, params);
+    }
+
+
+    public ScanResult<String> sscan(String key, int cursor) {
+
+        return delegate.sscan(key, cursor);
+    }
+
+
+    public ScanResult<String> sscan(String key, int cursor, ScanParams params) {
+
+        return delegate.sscan(key, cursor, params);
+    }
+
+
+    public ScanResult<Tuple> zscan(String key, int cursor) {
+
+        return delegate.zscan(key, cursor);
+    }
+
+
+    public ScanResult<Tuple> zscan(String key, int cursor, ScanParams params) {
+
+        return delegate.zscan(key, cursor, params);
+    }
+
+
+    public ScanResult<String> scan(String cursor) {
+
+        return delegate.scan(cursor);
+    }
+
+
+    public ScanResult<String> scan(String cursor, ScanParams params) {
+
+        return delegate.scan(cursor, params);
+    }
+
+
+    public ScanResult<Entry<String, String>> hscan(String key, String cursor) {
+
+        return delegate.hscan(key, cursor);
+    }
+
+
+    public ScanResult<Entry<String, String>> hscan(String key, String cursor, ScanParams params) {
+
+        return delegate.hscan(key, cursor, params);
+    }
+
+
+    public ScanResult<String> sscan(String key, String cursor) {
+
+        return delegate.sscan(key, cursor);
+    }
+
+
+    public ScanResult<String> sscan(String key, String cursor, ScanParams params) {
+
+        return delegate.sscan(key, cursor, params);
+    }
+
+
+    public ScanResult<Tuple> zscan(String key, String cursor) {
+
+        return delegate.zscan(key, cursor);
+    }
+
+
+    public ScanResult<Tuple> zscan(String key, String cursor, ScanParams params) {
+
+        return delegate.zscan(key, cursor, params);
+    }
+
+
+    public String clusterNodes() {
+
+        return delegate.clusterNodes();
+    }
+
+
+    public String clusterMeet(String ip, int port) {
+
+        return delegate.clusterMeet(ip, port);
+    }
+
+
+    public String clusterAddSlots(int... slots) {
+
+        return delegate.clusterAddSlots(slots);
+    }
+
+
+    public String clusterDelSlots(int... slots) {
+
+        return delegate.clusterDelSlots(slots);
+    }
+
+
+    public String clusterInfo() {
+
+        return delegate.clusterInfo();
+    }
+
+
+    public List<String> clusterGetKeysInSlot(int slot, int count) {
+
+        return delegate.clusterGetKeysInSlot(slot, count);
+    }
+
+
+    public String clusterSetSlotNode(int slot, String nodeId) {
+
+        return delegate.clusterSetSlotNode(slot, nodeId);
+    }
+
+
+    public String clusterSetSlotMigrating(int slot, String nodeId) {
+
+        return delegate.clusterSetSlotMigrating(slot, nodeId);
+    }
+
+
+    public String clusterSetSlotImporting(int slot, String nodeId) {
+
+        return delegate.clusterSetSlotImporting(slot, nodeId);
+    }
+
+
+    public String asking() {
+
+        return delegate.asking();
+    }
+
+
+    public List<String> pubsubChannels(String pattern) {
+
+        return delegate.pubsubChannels(pattern);
+    }
+
+
+    public Long pubsubNumPat() {
+
+        return delegate.pubsubNumPat();
+    }
+
+
+    public Map<String, String> pubsubNumSub(String... channels) {
+
+        return delegate.pubsubNumSub(channels);
+    }
+
+
+    public String ping() {
+
+        return delegate.ping();
+    }
+
+
+    public String set(byte[] key, byte[] value) {
+
+        return delegate.set(key, value);
+    }
+
+
+    public String set(byte[] key, byte[] value, byte[] nxxx, byte[] expx, long time) {
+
+        return delegate.set(key, value, nxxx, expx, time);
+    }
+
+
+    public byte[] get(byte[] key) {
+
+        return delegate.get(key);
+    }
+
+
+    public String quit() {
+
+        return delegate.quit();
+    }
+
+
+    public Boolean exists(byte[] key) {
+
+        return delegate.exists(key);
+    }
+
+
+    public Long del(byte[]... keys) {
+
+        return delegate.del(keys);
+    }
+
+
+    public Long del(byte[] key) {
+
+        return delegate.del(key);
+    }
+
+
+    public String type(byte[] key) {
+
+        return delegate.type(key);
+    }
+
+
+    public String flushDB() {
+
+        return delegate.flushDB();
+    }
+
+
+    public Set<byte[]> keys(byte[] pattern) {
+
+        return delegate.keys(pattern);
+    }
+
+
+    public byte[] randomBinaryKey() {
+
+        return delegate.randomBinaryKey();
+    }
+
+
+    public String rename(byte[] oldkey, byte[] newkey) {
+
+        return delegate.rename(oldkey, newkey);
+    }
+
+
+    public Long renamenx(byte[] oldkey, byte[] newkey) {
+
+        return delegate.renamenx(oldkey, newkey);
+    }
+
+
+    public Long dbSize() {
+
+        return delegate.dbSize();
+    }
+
+
+    public Long expire(byte[] key, int seconds) {
+
+        return delegate.expire(key, seconds);
+    }
+
+
+    public Long expireAt(byte[] key, long unixTime) {
+
+        return delegate.expireAt(key, unixTime);
+    }
+
+
+    public Long ttl(byte[] key) {
+
+        return delegate.ttl(key);
+    }
+
+
+    public String select(int index) {
+
+        return delegate.select(index);
+    }
+
+
+    public Long move(byte[] key, int dbIndex) {
+
+        return delegate.move(key, dbIndex);
+    }
+
+
+    public String flushAll() {
+
+        return delegate.flushAll();
+    }
+
+
+    public byte[] getSet(byte[] key, byte[] value) {
+
+        return delegate.getSet(key, value);
+    }
+
+
+    public List<byte[]> mget(byte[]... keys) {
+
+        return delegate.mget(keys);
+    }
+
+
+    public Long setnx(byte[] key, byte[] value) {
+
+        return delegate.setnx(key, value);
+    }
+
+
+    public String setex(byte[] key, int seconds, byte[] value) {
+
+        return delegate.setex(key, seconds, value);
+    }
+
+
+    public String mset(byte[]... keysvalues) {
+
+        return delegate.mset(keysvalues);
+    }
+
+
+    public Long msetnx(byte[]... keysvalues) {
+
+        return delegate.msetnx(keysvalues);
+    }
+
+
+    public Long decrBy(byte[] key, long integer) {
+
+        return delegate.decrBy(key, integer);
+    }
+
+
+    public Long decr(byte[] key) {
+
+        return delegate.decr(key);
+    }
+
+
+    public Long incrBy(byte[] key, long integer) {
+
+        return delegate.incrBy(key, integer);
+    }
+
+
+    public Long incr(byte[] key) {
+
+        return delegate.incr(key);
+    }
+
+
+    public Long append(byte[] key, byte[] value) {
+
+        return delegate.append(key, value);
+    }
+
+
+    public byte[] substr(byte[] key, int start, int end) {
+
+        return delegate.substr(key, start, end);
+    }
+
+
+    public Long hset(byte[] key, byte[] field, byte[] value) {
+
+        return delegate.hset(key, field, value);
+    }
+
+
+    public byte[] hget(byte[] key, byte[] field) {
+
+        return delegate.hget(key, field);
+    }
+
+
+    public Long hsetnx(byte[] key, byte[] field, byte[] value) {
+
+        return delegate.hsetnx(key, field, value);
+    }
+
+
+    public String hmset(byte[] key, Map<byte[], byte[]> hash) {
+
+        return delegate.hmset(key, hash);
+    }
+
+
+    public List<byte[]> hmget(byte[] key, byte[]... fields) {
+
+        return delegate.hmget(key, fields);
+    }
+
+
+    public Long hincrBy(byte[] key, byte[] field, long value) {
+
+        return delegate.hincrBy(key, field, value);
+    }
+
+
+    public Boolean hexists(byte[] key, byte[] field) {
+
+        return delegate.hexists(key, field);
+    }
+
+
+    public Long hdel(byte[] key, byte[]... fields) {
+
+        return delegate.hdel(key, fields);
+    }
+
+
+    public Long hlen(byte[] key) {
+
+        return delegate.hlen(key);
+    }
+
+
+    public Set<byte[]> hkeys(byte[] key) {
+
+        return delegate.hkeys(key);
+    }
+
+
+    public List<byte[]> hvals(byte[] key) {
+
+        return delegate.hvals(key);
+    }
+
+
+    public Map<byte[], byte[]> hgetAll(byte[] key) {
+
+        return delegate.hgetAll(key);
+    }
+
+
+    public Long rpush(byte[] key, byte[]... strings) {
+
+        return delegate.rpush(key, strings);
+    }
+
+
+    public Long lpush(byte[] key, byte[]... strings) {
+
+        return delegate.lpush(key, strings);
+    }
+
+
+    public Long llen(byte[] key) {
+
+        return delegate.llen(key);
+    }
+
+
+    public List<byte[]> lrange(byte[] key, long start, long end) {
+
+        return delegate.lrange(key, start, end);
+    }
+
+
+    public String ltrim(byte[] key, long start, long end) {
+
+        return delegate.ltrim(key, start, end);
+    }
+
+
+    public byte[] lindex(byte[] key, long index) {
+
+        return delegate.lindex(key, index);
+    }
+
+
+    public String lset(byte[] key, long index, byte[] value) {
+
+        return delegate.lset(key, index, value);
+    }
+
+
+    public Long lrem(byte[] key, long count, byte[] value) {
+
+        return delegate.lrem(key, count, value);
+    }
+
+
+    public byte[] lpop(byte[] key) {
+
+        return delegate.lpop(key);
+    }
+
+
+    public byte[] rpop(byte[] key) {
+
+        return delegate.rpop(key);
+    }
+
+
+    public byte[] rpoplpush(byte[] srckey, byte[] dstkey) {
+
+        return delegate.rpoplpush(srckey, dstkey);
+    }
+
+
+    public Long sadd(byte[] key, byte[]... members) {
+
+        return delegate.sadd(key, members);
+    }
+
+
+    public Set<byte[]> smembers(byte[] key) {
+
+        return delegate.smembers(key);
+    }
+
+
+    public Long srem(byte[] key, byte[]... member) {
+
+        return delegate.srem(key, member);
+    }
+
+
+    public byte[] spop(byte[] key) {
+
+        return delegate.spop(key);
+    }
+
+
+    public Long smove(byte[] srckey, byte[] dstkey, byte[] member) {
+
+        return delegate.smove(srckey, dstkey, member);
+    }
+
+
+    public Long scard(byte[] key) {
+
+        return delegate.scard(key);
+    }
+
+
+    public Boolean sismember(byte[] key, byte[] member) {
+
+        return delegate.sismember(key, member);
+    }
+
+
+    public Set<byte[]> sinter(byte[]... keys) {
+
+        return delegate.sinter(keys);
+    }
+
+
+    public Long sinterstore(byte[] dstkey, byte[]... keys) {
+
+        return delegate.sinterstore(dstkey, keys);
+    }
+
+
+    public Set<byte[]> sunion(byte[]... keys) {
+
+        return delegate.sunion(keys);
+    }
+
+
+    public Long sunionstore(byte[] dstkey, byte[]... keys) {
+
+        return delegate.sunionstore(dstkey, keys);
+    }
+
+
+    public Set<byte[]> sdiff(byte[]... keys) {
+
+        return delegate.sdiff(keys);
+    }
+
+
+    public Long sdiffstore(byte[] dstkey, byte[]... keys) {
+
+        return delegate.sdiffstore(dstkey, keys);
+    }
+
+
+    public byte[] srandmember(byte[] key) {
+
+        return delegate.srandmember(key);
+    }
+
+
+    public List<byte[]> srandmember(byte[] key, int count) {
+
+        return delegate.srandmember(key, count);
+    }
+
+
+    public Long zadd(byte[] key, double score, byte[] member) {
+
+        return delegate.zadd(key, score, member);
+    }
+
+
+    public Long zadd(byte[] key, Map<byte[], Double> scoreMembers) {
+
+        return delegate.zadd(key, scoreMembers);
+    }
+
+
+    public Set<byte[]> zrange(byte[] key, long start, long end) {
+
+        return delegate.zrange(key, start, end);
+    }
+
+
+    public Long zrem(byte[] key, byte[]... members) {
+
+        return delegate.zrem(key, members);
+    }
+
+
+    public Double zincrby(byte[] key, double score, byte[] member) {
+
+        return delegate.zincrby(key, score, member);
+    }
+
+
+    public Long zrank(byte[] key, byte[] member) {
+
+        return delegate.zrank(key, member);
+    }
+
+
+    public Long zrevrank(byte[] key, byte[] member) {
+
+        return delegate.zrevrank(key, member);
+    }
+
+
+    public Set<byte[]> zrevrange(byte[] key, long start, long end) {
+
+        return delegate.zrevrange(key, start, end);
+    }
+
+
+    public Set<Tuple> zrangeWithScores(byte[] key, long start, long end) {
+
+        return delegate.zrangeWithScores(key, start, end);
+    }
+
+
+    public Set<Tuple> zrevrangeWithScores(byte[] key, long start, long end) {
+
+        return delegate.zrevrangeWithScores(key, start, end);
+    }
+
+
+    public Long zcard(byte[] key) {
+
+        return delegate.zcard(key);
+    }
+
+
+    public Double zscore(byte[] key, byte[] member) {
+
+        return delegate.zscore(key, member);
+    }
+
+
+    public Transaction multi() {
+
+        return delegate.multi();
+    }
+
+
+    public List<Object> multi(TransactionBlock jedisTransaction) {
+
+        return delegate.multi(jedisTransaction);
+    }
+
+//
+//    protected void checkIsInMulti() {
+//
+//        delegate.checkIsInMulti();
+//    }
+
+
+    public void connect() {
+
+        delegate.connect();
+    }
+
+
+    public void disconnect() {
+
+        delegate.disconnect();
+    }
+
+
+    public void resetState() {
+
+        delegate.resetState();
+    }
+
+
+    public String watch(byte[]... keys) {
+
+        return delegate.watch(keys);
+    }
+
+
+    public String unwatch() {
+
+        return delegate.unwatch();
+    }
+
+
+    public void close() {
+
+        delegate.close();
+    }
+
+
+    public List<byte[]> sort(byte[] key) {
+
+        return delegate.sort(key);
+    }
+
+
+    public List<byte[]> sort(byte[] key, SortingParams sortingParameters) {
+
+        return delegate.sort(key, sortingParameters);
+    }
+
+
+    public List<byte[]> blpop(int timeout, byte[]... keys) {
+
+        return delegate.blpop(timeout, keys);
+    }
+
+
+    public Long sort(byte[] key, SortingParams sortingParameters, byte[] dstkey) {
+
+        return delegate.sort(key, sortingParameters, dstkey);
+    }
+
+
+    public Long sort(byte[] key, byte[] dstkey) {
+
+        return delegate.sort(key, dstkey);
+    }
+
+
+    public List<byte[]> brpop(int timeout, byte[]... keys) {
+
+        return delegate.brpop(timeout, keys);
+    }
+
+
+    public List<byte[]> blpop(byte[] arg) {
+
+        return delegate.blpop(arg);
+    }
+
+
+    public List<byte[]> brpop(byte[] arg) {
+
+        return delegate.brpop(arg);
+    }
+
+
+    public List<byte[]> blpop(byte[]... args) {
+
+        return delegate.blpop(args);
+    }
+
+
+    public List<byte[]> brpop(byte[]... args) {
+
+        return delegate.brpop(args);
+    }
+
+
+    public String auth(String password) {
+
+        return delegate.auth(password);
+    }
+
+
+    public List<Object> pipelined(PipelineBlock jedisPipeline) {
+
+        return delegate.pipelined(jedisPipeline);
+    }
+
+
+    public Pipeline pipelined() {
+
+        return delegate.pipelined();
+    }
+
+
+    public Long zcount(byte[] key, double min, double max) {
+
+        return delegate.zcount(key, min, max);
+    }
+
+
+    public Long zcount(byte[] key, byte[] min, byte[] max) {
+
+        return delegate.zcount(key, min, max);
+    }
+
+
+    public Set<byte[]> zrangeByScore(byte[] key, double min, double max) {
+
+        return delegate.zrangeByScore(key, min, max);
+    }
+
+
+    public Set<byte[]> zrangeByScore(byte[] key, byte[] min, byte[] max) {
+
+        return delegate.zrangeByScore(key, min, max);
+    }
+
+
+    public Set<byte[]> zrangeByScore(byte[] key, double min, double max, int offset, int count) {
+
+        return delegate.zrangeByScore(key, min, max, offset, count);
+    }
+
+
+    public Set<byte[]> zrangeByScore(byte[] key, byte[] min, byte[] max, int offset, int count) {
+
+        return delegate.zrangeByScore(key, min, max, offset, count);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, byte[] min, byte[] max) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, double min, double max, int offset, int count) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max, offset, count);
+    }
+
+
+    public Set<Tuple> zrangeByScoreWithScores(byte[] key, byte[] min, byte[] max, int offset, int count) {
+
+        return delegate.zrangeByScoreWithScores(key, min, max, offset, count);
+    }
+
+
+    public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min) {
+
+        return delegate.zrevrangeByScore(key, max, min);
+    }
+
+
+    public Set<byte[]> zrevrangeByScore(byte[] key, byte[] max, byte[] min) {
+
+        return delegate.zrevrangeByScore(key, max, min);
+    }
+
+
+    public Set<byte[]> zrevrangeByScore(byte[] key, double max, double min, int offset, int count) {
+
+        return delegate.zrevrangeByScore(key, max, min, offset, count);
+    }
+
+
+    public Set<byte[]> zrevrangeByScore(byte[] key, byte[] max, byte[] min, int offset, int count) {
+
+        return delegate.zrevrangeByScore(key, max, min, offset, count);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, double max, double min, int offset, int count) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, byte[] max, byte[] min) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min);
+    }
+
+
+    public Set<Tuple> zrevrangeByScoreWithScores(byte[] key, byte[] max, byte[] min, int offset, int count) {
+
+        return delegate.zrevrangeByScoreWithScores(key, max, min, offset, count);
+    }
+
+
+    public Long zremrangeByRank(byte[] key, long start, long end) {
+
+        return delegate.zremrangeByRank(key, start, end);
+    }
+
+
+    public Long zremrangeByScore(byte[] key, double start, double end) {
+
+        return delegate.zremrangeByScore(key, start, end);
+    }
+
+
+    public Long zremrangeByScore(byte[] key, byte[] start, byte[] end) {
+
+        return delegate.zremrangeByScore(key, start, end);
+    }
+
+
+    public Long zunionstore(byte[] dstkey, byte[]... sets) {
+
+        return delegate.zunionstore(dstkey, sets);
+    }
+
+
+    public Long zunionstore(byte[] dstkey, ZParams params, byte[]... sets) {
+
+        return delegate.zunionstore(dstkey, params, sets);
+    }
+
+
+    public Long zinterstore(byte[] dstkey, byte[]... sets) {
+
+        return delegate.zinterstore(dstkey, sets);
+    }
+
+
+    public Long zinterstore(byte[] dstkey, ZParams params, byte[]... sets) {
+
+        return delegate.zinterstore(dstkey, params, sets);
+    }
+
+
+    public String save() {
+
+        return delegate.save();
+    }
+
+
+    public String bgsave() {
+
+        return delegate.bgsave();
+    }
+
+
+    public String bgrewriteaof() {
+
+        return delegate.bgrewriteaof();
+    }
+
+
+    public Long lastsave() {
+
+        return delegate.lastsave();
+    }
+
+
+    public String shutdown() {
+
+        return delegate.shutdown();
+    }
+
+
+    public String info() {
+
+        return delegate.info();
+    }
+
+
+    public String info(String section) {
+
+        return delegate.info(section);
+    }
+
+
+    public void monitor(JedisMonitor jedisMonitor) {
+
+        delegate.monitor(jedisMonitor);
+    }
+
+
+    public String slaveof(String host, int port) {
+
+        return delegate.slaveof(host, port);
+    }
+
+
+    public String slaveofNoOne() {
+
+        return delegate.slaveofNoOne();
+    }
+
+
+    public List<byte[]> configGet(byte[] pattern) {
+
+        return delegate.configGet(pattern);
+    }
+
+
+    public String configResetStat() {
+
+        return delegate.configResetStat();
+    }
+
+
+    public byte[] configSet(byte[] parameter, byte[] value) {
+
+        return delegate.configSet(parameter, value);
+    }
+
+
+    public boolean isConnected() {
+
+        return delegate.isConnected();
+    }
+
+
+    public Long strlen(byte[] key) {
+
+        return delegate.strlen(key);
+    }
+
+
+    public void sync() {
+
+        delegate.sync();
+    }
+
+
+    public Long lpushx(byte[] key, byte[]... string) {
+
+        return delegate.lpushx(key, string);
+    }
+
+
+    public Long persist(byte[] key) {
+
+        return delegate.persist(key);
+    }
+
+
+    public Long rpushx(byte[] key, byte[]... string) {
+
+        return delegate.rpushx(key, string);
+    }
+
+
+    public byte[] echo(byte[] string) {
+
+        return delegate.echo(string);
+    }
+
+
+    public Long linsert(byte[] key, LIST_POSITION where, byte[] pivot, byte[] value) {
+
+        return delegate.linsert(key, where, pivot, value);
+    }
+
+
+    public String debug(DebugParams params) {
+
+        return delegate.debug(params);
+    }
+
+
+    public Client getClient() {
+
+        return delegate.getClient();
+    }
+
+
+    public byte[] brpoplpush(byte[] source, byte[] destination, int timeout) {
+
+        return delegate.brpoplpush(source, destination, timeout);
+    }
+
+
+    public Boolean setbit(byte[] key, long offset, boolean value) {
+
+        return delegate.setbit(key, offset, value);
+    }
+
+
+    public Boolean setbit(byte[] key, long offset, byte[] value) {
+
+        return delegate.setbit(key, offset, value);
+    }
+
+
+    public Boolean getbit(byte[] key, long offset) {
+
+        return delegate.getbit(key, offset);
+    }
+
+
+    public Long setrange(byte[] key, long offset, byte[] value) {
+
+        return delegate.setrange(key, offset, value);
+    }
+
+
+    public byte[] getrange(byte[] key, long startOffset, long endOffset) {
+
+        return delegate.getrange(key, startOffset, endOffset);
+    }
+
+
+    public Long publish(byte[] channel, byte[] message) {
+
+        return delegate.publish(channel, message);
+    }
+
+
+    public void subscribe(BinaryJedisPubSub jedisPubSub, byte[]... channels) {
+
+        delegate.subscribe(jedisPubSub, channels);
+    }
+
+
+    public void psubscribe(BinaryJedisPubSub jedisPubSub, byte[]... patterns) {
+
+        delegate.psubscribe(jedisPubSub, patterns);
+    }
+
+
+    public Long getDB() {
+
+        return delegate.getDB();
+    }
+
+
+    public Object eval(byte[] script, List<byte[]> keys, List<byte[]> args) {
+
+        return delegate.eval(script, keys, args);
+    }
+
+
+    public Object eval(byte[] script, byte[] keyCount, byte[]... params) {
+
+        return delegate.eval(script, keyCount, params);
+    }
+
+
+    public Object eval(byte[] script, int keyCount, byte[]... params) {
+
+        return delegate.eval(script, keyCount, params);
+    }
+
+
+    public Object eval(byte[] script) {
+
+        return delegate.eval(script);
+    }
+
+
+    public Object evalsha(byte[] sha1) {
+
+        return delegate.evalsha(sha1);
+    }
+
+
+    public Object evalsha(byte[] sha1, List<byte[]> keys, List<byte[]> args) {
+
+        return delegate.evalsha(sha1, keys, args);
+    }
+
+
+    public Object evalsha(byte[] sha1, int keyCount, byte[]... params) {
+
+        return delegate.evalsha(sha1, keyCount, params);
+    }
+
+
+    public String scriptFlush() {
+
+        return delegate.scriptFlush();
+    }
+
+
+    public List<Long> scriptExists(byte[]... sha1) {
+
+        return delegate.scriptExists(sha1);
+    }
+
+
+    public byte[] scriptLoad(byte[] script) {
+
+        return delegate.scriptLoad(script);
+    }
+
+
+    public String scriptKill() {
+
+        return delegate.scriptKill();
+    }
+
+
+    public String slowlogReset() {
+
+        return delegate.slowlogReset();
+    }
+
+
+    public Long slowlogLen() {
+
+        return delegate.slowlogLen();
+    }
+
+
+    public List<byte[]> slowlogGetBinary() {
+
+        return delegate.slowlogGetBinary();
+    }
+
+
+    public List<byte[]> slowlogGetBinary(long entries) {
+
+        return delegate.slowlogGetBinary(entries);
+    }
+
+
+    public Long objectRefcount(byte[] key) {
+
+        return delegate.objectRefcount(key);
+    }
+
+
+    public byte[] objectEncoding(byte[] key) {
+
+        return delegate.objectEncoding(key);
+    }
+
+
+    public Long objectIdletime(byte[] key) {
+
+        return delegate.objectIdletime(key);
+    }
+
+
+    public Long bitcount(byte[] key) {
+
+        return delegate.bitcount(key);
+    }
+
+
+    public Long bitcount(byte[] key, long start, long end) {
+
+        return delegate.bitcount(key, start, end);
+    }
+
+
+    public Long bitop(BitOP op, byte[] destKey, byte[]... srcKeys) {
+
+        return delegate.bitop(op, destKey, srcKeys);
+    }
+
+
+    public byte[] dump(byte[] key) {
+
+        return delegate.dump(key);
+    }
+
+
+    public String restore(byte[] key, int ttl, byte[] serializedValue) {
+
+        return delegate.restore(key, ttl, serializedValue);
+    }
+
+
+    public Long pexpire(byte[] key, int milliseconds) {
+
+        return delegate.pexpire(key, milliseconds);
+    }
+
+
+    public Long pexpireAt(byte[] key, long millisecondsTimestamp) {
+
+        return delegate.pexpireAt(key, millisecondsTimestamp);
+    }
+
+
+    public Long pttl(byte[] key) {
+
+        return delegate.pttl(key);
+    }
+
+
+    public Double incrByFloat(byte[] key, double increment) {
+
+        return delegate.incrByFloat(key, increment);
+    }
+
+
+    public String psetex(byte[] key, int milliseconds, byte[] value) {
+
+        return delegate.psetex(key, milliseconds, value);
+    }
+
+
+    public String set(byte[] key, byte[] value, byte[] nxxx) {
+
+        return delegate.set(key, value, nxxx);
+    }
+
+
+    public String set(byte[] key, byte[] value, byte[] nxxx, byte[] expx, int time) {
+
+        return delegate.set(key, value, nxxx, expx, time);
+    }
+
+
+    public String clientKill(byte[] client) {
+
+        return delegate.clientKill(client);
+    }
+
+
+    public String clientGetname() {
+
+        return delegate.clientGetname();
+    }
+
+
+    public String clientList() {
+
+        return delegate.clientList();
+    }
+
+
+    public String clientSetname(byte[] name) {
+
+        return delegate.clientSetname(name);
+    }
+
+
+    public List<String> time() {
+
+        return delegate.time();
+    }
+
+
+    public String migrate(byte[] host, int port, byte[] key, int destinationDb, int timeout) {
+
+        return delegate.migrate(host, port, key, destinationDb, timeout);
+    }
+
+
+    public Double hincrByFloat(byte[] key, byte[] field, double increment) {
+
+        return delegate.hincrByFloat(key, field, increment);
+    }
+
+
+    public Long waitReplicas(int replicas, long timeout) {
+
+        return delegate.waitReplicas(replicas, timeout);
+    }
+
+
+}

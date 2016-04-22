@@ -1,4 +1,4 @@
-package com.codelab.cache;
+package com.codelab.cache.redis;
 
 /**
  * @author edwin

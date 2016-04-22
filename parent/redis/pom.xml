@@ -24,6 +24,10 @@
             <version>${redis.spring.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
@@ -36,6 +40,15 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
             <version>${common.pool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaomi.miui.sec</groupId>
+            <artifactId>sec-cache</artifactId>
+            <version>1.1.12-pom-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

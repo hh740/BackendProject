@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 public class RedisPoolFactory implements PoolFactory {
 
@@ -46,16 +47,13 @@ public class RedisPoolFactory implements PoolFactory {
     }
 
     @Override
-    public RedisPool newCachePool(String host, int port) {
+    public RedisPool newRedisPool(String host, int port) {
+
         throw new RuntimeException("Unsupported operation now");
     }
 
-    public RedisPool getCachePool(RedisCfg.Parts redisCfgPart) {
-        return getCachePool(redisCfgPart.name());
-    }
-
     @Override
-    public RedisPool getCachePool(String name) {
+    public RedisPool getRedisPool(String name) {
         if (!POOL.containsKey(name))
             throw new NullPointerException();
         return POOL.get(name);
@@ -91,23 +89,37 @@ public class RedisPoolFactory implements PoolFactory {
             if (StringUtils.isBlank(key))
                 errorConfig();
             if (key.endsWith("host")) {
+                String address = properties.getProperty(key);
+                //judge the cluster type,standalone or cluster
+                RedisPool redisPool = null;
                 String[] s = key.split("\\.");
                 if (s == null || s.length < 3)
                     errorConfig();
-                String kport = s[0] + "." + s[1] + ".port";
-                String kpass = s[0] + "." + s[1] + ".pass";
-                logger.debug("kport:{},kpass:{}", kport, kpass);
-                if (!properties.containsKey(kport) || !properties.containsKey(kpass))
-                    errorConfig();
-                Integer port = Integer.valueOf(properties.getProperty(kport));
-                String host = properties.getProperty(key);
-                String pass = properties.getProperty(kpass);
                 String name = s[1];
-                //根据不同类型放入不同的类型的Redis客户端
-                RedisPool cachePool = new RedisPool(host, port, pass);
-                POOL.put(name, cachePool);
+                String kpass = s[0] + "." + name + ".pass";
+                logger.debug("kpass:{}", kpass);
+                if (!properties.containsKey(kpass))
+                    errorConfig();
+                String pass = properties.getProperty(kpass);
+
+                if (Pattern.matches("((\\d+\\.){3}\\d+:\\d+,)+((\\d+\\.){3}\\d+:\\d+)", address)) {
+                    //cluster mode
+                    redisPool = new ClusterRedisPool(address,pass);
+                }
+                else if (Pattern.matches("(\\d+\\.){3}\\d+:\\d+", address)) {
+                    //standalone mode
+                    redisPool = new DefalutRedisPool(address, pass);
+                }
+                else {
+                    throw new IllegalArgumentException("address in not correct:"+address);
+                }
+                if (redisPool != null)
+                    POOL.put(name, redisPool);
+                else
+                    throw new NullPointerException("redis pool is null");
+
                 if (logger.isInfoEnabled())
-                    logger.info("Create redisCachePool {}[{}:{}] successfully", name, host, port);
+                    logger.info("Create redisCachePool{}:{} successfully", address);
             }
         }
     }

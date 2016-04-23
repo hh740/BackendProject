@@ -14,7 +14,7 @@ import java.util.Set;
  * Redis client
  *
  */
-public class RedisClient /* implements Cache */{
+public class RedisStandaloneClient implements  RedisClient{
 
     private Jedis delegate;
 
@@ -26,7 +26,7 @@ public class RedisClient /* implements Cache */{
         return delegate;
     }
 
-    public RedisClient(Jedis jedis) {
+    public RedisStandaloneClient(Jedis jedis) {
         if (jedis == null) throw new NullPointerException();
         this.delegate = jedis;
     }

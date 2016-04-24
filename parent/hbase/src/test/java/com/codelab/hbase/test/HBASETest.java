@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class HBASETest {
     private static Logger logger = LoggerFactory
             .getLogger(HBASETest.class);
 
+    @Ignore
     @Test
     public void testHBASE() throws IOException {
 

@@ -2,6 +2,7 @@ package com.codelab.redis.test;
 
 import com.codelab.redis.cluster.*;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ public class RedisClusterClientTest {
     private static Logger logger = LoggerFactory
             .getLogger(RedisClusterClientTest.class);
 
+    @Ignore
     @Test
     public void testCluster() {
         RedisPoolFactory factory = RedisPoolFactory.getInstance();

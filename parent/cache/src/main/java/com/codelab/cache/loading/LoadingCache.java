@@ -1,17 +1,22 @@
 package com.codelab.cache.loading;
 
 
-import com.codelab.cache.Lifecycle;
+import com.codelab.cache.Cache;
 
-public interface LoadingCache<K, V> extends Lifecycle /* extends Cache */ {
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-    public void load() throws Exception;
+public interface LoadingCache<K, V> extends Cache<K, V>, Loader<K, V> {
 
-    V get(K key);
+    public V get(K key);
 
-    void set(K key, V value);
+    public List<V> gets(Set<K> keys);
 
-    void set(K key, V value, int timeout);
+    public void set(K key, V value);
 
-    void delete(K key);
+    public void set(K key, V value, long timeout);
+
+    public void delete(K key);
+
 }

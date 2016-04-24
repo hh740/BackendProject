@@ -1,6 +1,7 @@
 package com.codelab.redis.test;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class RedisJedisTest {
     @Resource
     JedisPool jedisPool;
 
-
+    @Ignore
     @Test
     public void testFindProductUnderCarrier() {
 

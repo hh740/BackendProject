@@ -27,15 +27,16 @@ public class RedisClusterClientTest {
         RedisPoolFactory factory = RedisPoolFactory.getInstance();
         //get diff type of pool
         RedisPool pool1 = factory.getRedisPool("test1");
-        RedisStandaloneClient rc = (RedisStandaloneClient)pool1.getRedisClient();
+        RedisClient rc = pool1.getRedisClient();
         rc.set("abc","def");
         String res = rc.get("abc");
         Assert.assertEquals(res,"def");
 
         RedisPool pool2 = factory.getRedisPool("test2");
-        RedisClusterClient rc2 =(RedisClusterClient) pool2.getRedisClient();
+        RedisClient rc2 = pool2.getRedisClient();
         rc2.set("abc","helloworld");
-        res = rc2.get("abc");
+        String res2 = rc2.get("abc");
+        System.out.println(res2);
 
 
     }

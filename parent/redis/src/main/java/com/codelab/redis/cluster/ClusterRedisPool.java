@@ -43,7 +43,8 @@ public class ClusterRedisPool implements RedisPool {
         poolConfig.setMinIdle(5);
         poolConfig.setMaxTotal(1024);
         if(logger.isInfoEnabled()) logger.info("poolConfig minIdle:{}, maxIdle:{}, maxTotal:{}", poolConfig.getMinIdle(), poolConfig.getMaxIdle(), poolConfig.getMaxTotal());
-        redisClusterClient = new RedisClusterClient(nodes, 1000, 5, poolConfig);
+        JedisCluster  jc = new JedisCluster(nodes,1000,5,poolConfig);
+        redisClusterClient = new RedisClusterClient(jc);;
     }
 
     public ClusterRedisPool(String hosts, String password) {
@@ -64,16 +65,18 @@ public class ClusterRedisPool implements RedisPool {
         poolConfig.setMinIdle(5);
         poolConfig.setMaxTotal(1024);
         if(logger.isInfoEnabled()) logger.info("poolConfig minIdle:{}, maxIdle:{}, maxTotal:{}", poolConfig.getMinIdle(), poolConfig.getMaxIdle(), poolConfig.getMaxTotal());
-        redisClusterClient = new RedisClusterClient(nodes, 1000, 5, poolConfig);
+        JedisCluster  jc = new JedisCluster(nodes,1000,5,poolConfig);
+        redisClusterClient = new RedisClusterClient(jc);
     }
 
     @Override
-    public RedisClusterClient getRedisClient() {
+    public RedisClient getRedisClient() {
         return redisClusterClient;
     }
 
     @Override
     public void release(RedisClient client) {
+
         RedisClusterClient rcc = (RedisClusterClient) client;
         try {
             rcc.close();

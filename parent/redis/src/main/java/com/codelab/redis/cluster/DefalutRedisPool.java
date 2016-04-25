@@ -49,11 +49,11 @@ public class DefalutRedisPool implements  RedisPool{
 
     }
 
-    public RedisStandaloneClient getRedisClient() {
+    public RedisClient getRedisClient() {
         return new RedisStandaloneClient(pool.getResource());
     }
 
-    public void release(RedisClient client ) {
+    public void release(RedisClient client) {
         RedisStandaloneClient rsc = (RedisStandaloneClient) client;
         pool.returnResource(rsc.getDelegate());
     }

@@ -8,6 +8,7 @@ import com.codelab.redis.cluster.RedisClient;
 import com.codelab.redis.cluster.RedisPoolFactory;
 import com.codelab.redis.cluster.RedisStandaloneClient;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -26,24 +27,24 @@ public class CallableRedisCacheTest {
 
     @Before
     public void loadData() {
-
-        callableCache = new RedisCacheImpl("TEST");
-
+        //make sure the "test" module exist in the redis.properties
+        callableCache = new RedisCacheImpl("test2");
     }
 
+    @Ignore
     @Test
     public void getDataFromCache() throws InterruptedException {
 
-        callableCache.get("test4", new Callable<Object, RedisClient>() {
+        Object o = callableCache.get("test4", new Callable<Object, RedisClient>() {
             @Override
             public Object call(RedisClient client) throws Exception {
-                RedisStandaloneClient rsc = (RedisStandaloneClient)client;
-                String res=  rsc.get("test4");
+                //do not care the cluster or the standalone
+                String res = client.get("test4");
                 return res;
             }
         });
 
-         String result = (String )callableCache.get("test4");
+        String result = (String )callableCache.get("test4");
 
         System.out.print("======================================");
 

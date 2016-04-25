@@ -11,22 +11,21 @@ import com.codelab.redis.cluster.RedisStandaloneClient;
 public class RedisCacheImpl extends AbstructCache<String,Object,RedisClient>{
 
 
-    RedisPoolFactory factory = RedisPoolFactory.getInstance();
+    private RedisPool pool;
 
     public RedisCacheImpl(String namespace) {
         super(namespace);
+        pool  = RedisPoolFactory.getInstance().getRedisPool(namespace);
     }
 
     @Override
     public RedisClient getResource() {
-
-        RedisPool pool = factory.getRedisPool("test1");
         return pool.getRedisClient();
     }
 
     @Override
     public void returnResource(RedisClient client) {
-
+        pool.release(client);
     }
 
 }

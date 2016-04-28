@@ -17,14 +17,18 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.apache.zookeeper</groupId>
+            <groupId>com.codelab</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>${zookeeper.version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>${zkClient.version}</version>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     </dependencies>
 </project>

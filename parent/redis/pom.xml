@@ -45,10 +45,5 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.xiaomi.miui.sec</groupId>
-            <artifactId>sec-cache</artifactId>
-            <version>1.1.12-pom-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>

@@ -5,9 +5,7 @@ import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by wangke on 16/4/27.
- */
+
 public class ThriftUtils {
 
     static final Logger LOGGER = LoggerFactory.getLogger(ThriftUtils.class);
@@ -16,7 +14,6 @@ public class ThriftUtils {
         String IFACE_SUFFIX = "$Iface";
         String CLIENT_SUFFIX = "$Client";
         String PROCESSOR_SUFFIX = "$Processor";
-
         String DEFAULT_CONFIG_NAME = "Default";
 
     }

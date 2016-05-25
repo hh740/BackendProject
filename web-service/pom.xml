@@ -150,6 +150,32 @@
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
             </plugin>
+
+            <!--cargo,用语远程部署,注意在settings文件中添加
+                 <pluginGroups>
+                   <pluginGroup>org.codehaus.cargo</pluginGroup>
+                 </pluginGroups>
+            -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.19</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat8x</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.tomcat.manager.url>http://www.test.com/manager</cargo.tomcat.manager.url>
+                            <cargo.remote.username>wangke</cargo.remote.username>
+                            <cargo.remote.password>zmqwer</cargo.remote.password>
+                        </properties>
+                    </configuration>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

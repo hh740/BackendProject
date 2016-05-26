@@ -33,6 +33,9 @@
                 <redis.host>10.98.80.56</redis.host>
                 <redis.port>6379</redis.port>
                 <redis.pass>sec</redis.pass>
+                <tomcat.username>admin</tomcat.username>
+                <tomcat.password>admin</tomcat.password>
+                <tomcat.hostname>www.test.com</tomcat.hostname>
             </properties>
             <activation>
                 <!--dev环境为默认环境-->
@@ -47,14 +50,14 @@
     <dependencies>
         <!--引用parent下子项目,不要引用不需要的模块-->
         <dependency>
-            <groupId>${parent.groupId}</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>mybatis</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>${parent.groupId}</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>common</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <!--引用parent的公共依赖,版本在parent中指定-->
         <dependency>
@@ -168,9 +171,10 @@
                     <configuration>
                         <type>runtime</type>
                         <properties>
-                            <cargo.tomcat.manager.url>http://www.test.com/manager</cargo.tomcat.manager.url>
-                            <cargo.remote.username>wangke</cargo.remote.username>
-                            <cargo.remote.password>zmqwer</cargo.remote.password>
+                            <cargo.remote.username>${tomcat.username}</cargo.remote.username>
+                            <cargo.remote.password>${tomcat.password}</cargo.remote.password>
+                            <cargo.hostname>${tomcat.hostname}</cargo.hostname>
+                            <cargo.servlet.port>80</cargo.servlet.port>
                         </properties>
                     </configuration>
                 </configuration>

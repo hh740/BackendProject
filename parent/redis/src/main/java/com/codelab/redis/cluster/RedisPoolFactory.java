@@ -94,7 +94,7 @@ public class RedisPoolFactory implements PoolFactory {
                 RedisPool redisPool = null;
                 String[] s = key.split("\\.");
                 if (s == null || s.length < 3)
-                    errorConfig();
+                    continue;
                 String name = s[1];
                 String kpass = s[0] + "." + name + ".pass";
                 logger.debug("kpass:{}", kpass);

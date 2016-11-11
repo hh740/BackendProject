@@ -7,8 +7,6 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  * the example of start a thrift server

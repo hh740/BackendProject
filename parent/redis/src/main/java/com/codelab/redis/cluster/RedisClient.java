@@ -1,4 +1,4 @@
-package com.miot.redis.cluster;
+package com.codelab.redis.cluster;
 
 import redis.clients.jedis.*;
 import redis.clients.jedis.params.geo.GeoRadiusParam;

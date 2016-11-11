@@ -1,4 +1,4 @@
-package com.miot.redis.cluster;
+package com.codelab.redis.cluster;
 
 public interface RedisPool {
 

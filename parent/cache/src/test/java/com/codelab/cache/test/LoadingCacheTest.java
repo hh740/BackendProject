@@ -1,9 +1,8 @@
 package com.codelab.cache.test;
 
+import com.codelab.cache.loading.LoadingCache;
 import com.codelab.cache.LoadingCacheImpl;
 import com.codelab.cache.loading.Loader;
-import com.codelab.cache.loading.LoadingCache;
-import com.codelab.cache.AbstructCache;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

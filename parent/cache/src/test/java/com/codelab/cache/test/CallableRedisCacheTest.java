@@ -1,12 +1,9 @@
 package com.codelab.cache.test;
 
-import com.codelab.cache.CallableCacheImpl;
 import com.codelab.cache.RedisCacheImpl;
 import com.codelab.cache.callable.Callable;
 import com.codelab.cache.callable.CallableCache;
 import com.codelab.redis.cluster.RedisClient;
-import com.codelab.redis.cluster.RedisPoolFactory;
-import com.codelab.redis.cluster.RedisStandaloneClient;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

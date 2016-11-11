@@ -34,14 +34,14 @@ public class ThriftClient {
 
     }
 
-    public synchronized static <Iface> Iface getClient(Class<Iface> clazz) {
+    public synchronized static <Iface> Iface getClient(final Class<Iface> clazz) {
 
         if (client != null)
             return (Iface) client;
 
         String serviceDefName = ThriftUtils.getServiceDefinitionClass(clazz);
-        String zkConfigPath = ThriftUtils.getThriftZKPath(serviceDefName);
-        ZkClient zkClient = ZKClient.getZkClient();
+        final String zkConfigPath = ThriftUtils.getThriftZKPath(serviceDefName);
+        final ZkClient zkClient = ZKClient.getZkClient();
 
         logger.debug("zk client prepare create  the persistent node:{}", zkConfigPath);
         if (!zkClient.exists(zkConfigPath))
@@ -88,7 +88,7 @@ public class ThriftClient {
         Properties p = zkClient.readData(zkConfigPath);
         if (p == null)
             throw new NullPointerException("properties is null,please check the thrift server running");
-        Integer clients = (Integer) p.getOrDefault(CLIENTS, 0) + 1;
+        Integer clients = (Integer) p.getOrDefault(CLIENTS,0) + 1;
         Integer servers = nodes.size();
         p.put(CLIENTS, clients);
         p.put(SERVERS, servers);

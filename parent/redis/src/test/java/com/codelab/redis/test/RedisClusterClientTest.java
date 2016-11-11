@@ -1,8 +1,8 @@
-package com.miot.redis.test;
+package com.codelab.redis.test;
 
-import com.miot.redis.cluster.RedisClient;
-import com.miot.redis.cluster.RedisPool;
-import com.miot.redis.cluster.RedisPoolFactory;
+import com.codelab.redis.cluster.RedisClient;
+import com.codelab.redis.cluster.RedisPool;
+import com.codelab.redis.cluster.RedisPoolFactory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

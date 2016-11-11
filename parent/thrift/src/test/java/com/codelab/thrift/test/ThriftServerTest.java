@@ -3,9 +3,6 @@ package com.codelab.thrift.test;
 import com.codelab.thrift.ThriftServiceRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 /**
  * Note: the JUNIT can not test the mult thread program

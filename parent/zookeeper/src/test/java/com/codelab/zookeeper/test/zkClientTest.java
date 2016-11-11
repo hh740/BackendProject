@@ -5,12 +5,15 @@ import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.CreateMode;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
 public class zkClientTest {
 
+
+    @Ignore
     @Test
     public void clientTest() {
 

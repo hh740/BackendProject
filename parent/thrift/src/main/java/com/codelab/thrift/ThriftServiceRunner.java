@@ -1,5 +1,6 @@
 package com.codelab.thrift;
 
+
 import com.codelab.zookeeper.ZKClient;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.commons.lang.Validate;
@@ -8,20 +9,14 @@ import org.apache.thrift.server.THsHaServer;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.transport.TNonblockingServerSocket;
 import org.apache.thrift.transport.TNonblockingServerTransport;
-import org.apache.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 
 
@@ -31,13 +26,13 @@ public final class ThriftServiceRunner {
 
     static final String SERVRES = "servers";
 
-    public static <T> void startThriftServer(T service, int port) {
+    public static <T> void startThriftServer(T service, final int port) {
 
         Validate.notNull(service, "service is null");
         String serviceDefName = ThriftUtils.getServiceDefinitionClass(service.getClass());
-        String zkConfigPath = ThriftUtils.getThriftZKPath(serviceDefName);
+        final String zkConfigPath = ThriftUtils.getThriftZKPath(serviceDefName);
 
-        ZkClient zkClient = ZKClient.getZkClient();
+        final ZkClient zkClient = ZKClient.getZkClient();
 
         logger.info("zk client prepare create  the persistent node:{}", zkConfigPath);
         //create parent node
@@ -46,10 +41,10 @@ public final class ThriftServiceRunner {
 
         try {
             //create new  Half-Sync/Half-Async server
-            InetAddress address = InetAddress.getLocalHost();
+            final InetAddress address = InetAddress.getLocalHost();
             InetSocketAddress inetSocketAddress = new InetSocketAddress(address, port);
             logger.info("cerate HSHA server hostname:{},port:{}", address.getHostName(), port);
-            TServer server = createHsHaServer(serviceDefName, service, inetSocketAddress);
+            final TServer server = createHsHaServer(serviceDefName, service, inetSocketAddress);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

@@ -1,18 +1,10 @@
 package com.codelab.cache.test;
 
 import com.codelab.cache.CallableCacheImpl;
-import com.codelab.cache.LoadingCacheImpl;
 import com.codelab.cache.callable.Callable;
 import com.codelab.cache.callable.CallableCache;
-import com.codelab.cache.loading.Loader;
-import com.codelab.cache.loading.LoadingCache;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by wangke on 16/4/22.

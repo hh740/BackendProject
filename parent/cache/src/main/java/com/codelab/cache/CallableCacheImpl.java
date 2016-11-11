@@ -1,7 +1,5 @@
 package com.codelab.cache;
 
-import com.codelab.cache.loading.Loader;
-
 /**
  * Created by wangke on 16/4/24.
  */

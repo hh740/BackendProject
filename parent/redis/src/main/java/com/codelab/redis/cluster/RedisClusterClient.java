@@ -1,4 +1,4 @@
-package com.miot.redis.cluster;
+package com.codelab.redis.cluster;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.*;

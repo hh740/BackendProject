@@ -1,9 +1,9 @@
 package com.codelab.cache;
 
+
 import com.codelab.redis.cluster.RedisClient;
 import com.codelab.redis.cluster.RedisPool;
 import com.codelab.redis.cluster.RedisPoolFactory;
-import com.codelab.redis.cluster.RedisStandaloneClient;
 
 /**
  * Created by wangke on 16/4/24.

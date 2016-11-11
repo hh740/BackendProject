@@ -4,7 +4,6 @@ package com.codelab.cache.loading;
 import com.codelab.cache.Cache;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface LoadingCache<K, V> extends Cache<K, V>, Loader<K, V> {

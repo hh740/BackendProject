@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.codelab</groupId>
+        <groupId>com.miot</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -29,11 +29,6 @@
             <version>${googlecode.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.codelab</groupId>
-            <artifactId>redis</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <classifier>jdk15</classifier>
@@ -55,7 +50,7 @@
         <dependency>
             <groupId>com.codelab</groupId>
             <artifactId>redis</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 </project>

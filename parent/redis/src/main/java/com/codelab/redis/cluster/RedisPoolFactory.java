@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -83,8 +83,9 @@ public class RedisPoolFactory implements PoolFactory {
         if (properties.isEmpty())
             return;
         Set<String> keys = properties.stringPropertyNames();
-        for (String key : keys)
-            logger.debug("key:{},value:{}", key, properties.getProperty(key));
+        if (logger.isDebugEnabled())
+            for (String key : keys)
+                logger.debug("key:{},value:{}", key, properties.getProperty(key));
         for (String key : keys) {
             if (StringUtils.isBlank(key))
                 errorConfig();
@@ -104,14 +105,12 @@ public class RedisPoolFactory implements PoolFactory {
 
                 if (Pattern.matches("((\\d+\\.){3}\\d+:\\d+,)+((\\d+\\.){3}\\d+:\\d+)", address)) {
                     //cluster mode
-                    redisPool = new ClusterRedisPool(address,pass);
-                }
-                else if (Pattern.matches("(\\d+\\.){3}\\d+:\\d+", address)) {
+                    redisPool = new ClusterRedisPool(address, pass);
+                } else if (Pattern.matches("(\\d+\\.){3}\\d+:\\d+", address)) {
                     //standalone mode
                     redisPool = new DefalutRedisPool(address, pass);
-                }
-                else {
-                    throw new IllegalArgumentException("address in not correct:"+address);
+                } else {
+                    throw new IllegalArgumentException("address in not correct:" + address);
                 }
                 if (redisPool != null)
                     POOL.put(name, redisPool);

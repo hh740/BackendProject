@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;

@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 import redis.clients.jedis.*;
 import redis.clients.jedis.params.geo.GeoRadiusParam;
@@ -33,6 +33,8 @@ public interface RedisClient {
     public Long del(String key);
 
     public String type(String key);
+
+    public Set<String> keys(String pattern);
 
     public String rename(String oldkey, String newkey);
 
@@ -367,6 +369,8 @@ public interface RedisClient {
     public List<GeoRadiusResponse> georadiusByMember(String key, String member, double radius, GeoUnit unit);
 
     public List<GeoRadiusResponse> georadiusByMember(String key, String member, double radius, GeoUnit unit, GeoRadiusParam param);
+
+    public ScanResult<String> scan(final String cursor, final ScanParams params);
 
 }
 

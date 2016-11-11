@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 public interface PoolFactory {
 

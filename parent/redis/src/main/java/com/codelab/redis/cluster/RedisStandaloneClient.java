@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.*;

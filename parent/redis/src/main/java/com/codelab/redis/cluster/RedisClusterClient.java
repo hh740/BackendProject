@@ -1,4 +1,4 @@
-package com.codelab.redis.cluster;
+package com.miot.redis.cluster;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.*;
@@ -8,7 +8,6 @@ import redis.clients.jedis.params.sortedset.ZIncrByParams;
 import redis.clients.util.JedisClusterCRC16;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,6 +65,12 @@ public class RedisClusterClient implements RedisClient {
     @Override
     public String type(String key) {
         return delegate.type(key);
+    }
+
+    @Override
+    @Deprecated
+    public Set<String> keys(String pattern) {
+        return null;
     }
 
     @Override
@@ -926,6 +931,11 @@ public class RedisClusterClient implements RedisClient {
     @Override
     public List<GeoRadiusResponse> georadiusByMember(String key, String member, double radius, GeoUnit unit, GeoRadiusParam param) {
         return delegate.georadiusByMember(key, member, radius, unit, param);
+    }
+
+    @Override
+    public ScanResult<String> scan(String cursor, ScanParams params) {
+        return delegate.scan(cursor,params);
     }
 
     public void close() throws IOException {
